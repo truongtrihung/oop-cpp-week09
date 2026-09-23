@@ -217,6 +217,14 @@ struct RESTAURANT{
         }
     }
 
+    // Chức năng 7: Kiểm tra món ăn có tồn tại và đủ số lượng
+    bool isFoodAvailable (string key, int reqQuantity){
+        int idx = findFoodIdex(key);
+        if (idx != -1){
+            return foods[idx].quantity >= reqQuantity;
+        }
+        return false;
+    }
     // Chức năng 9: Hiển thị danh sách các đơn hàng
     void displayOrders() {
         cout << "\n<<<<<<<<<<<< ORDERS LIST >>>>>>>>>>>>" << endl;

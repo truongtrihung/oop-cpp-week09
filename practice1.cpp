@@ -90,6 +90,7 @@ struct ORDER{
     // Chức năng 8: Tính tổng tiền của đơn hàng
     double getTotalPrice(){
         return food.price * quantity;
+        cout << endl;
     }
 
     void outputInfo(){      // In thông tin order

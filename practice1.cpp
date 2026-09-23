@@ -160,7 +160,19 @@ struct RESTAURANT{
         }
         
     }
+
+    // Chức năng 4 (hỗ trợ): Tìm món ăn theo id hoặc name
+    int findFoorInex(string key){
+        for (int i = 0; i < foodCount; i++){
+            if (foods[i].id == key || foods[i].name == key){
+                return i;
+            }
+        }
+        return -1;
+    }
+
     // Chức năng 5: Cập nhật giá hoặc số lượng món ăn
+
     // Chức năng 6: Tạo đơn hàng mới
     // Chức năng 7: Kiểm tra món ăn có tồn tại và đủ số lượng
     // Chức năng 9: Hiển thị danh sách các đơn hàng

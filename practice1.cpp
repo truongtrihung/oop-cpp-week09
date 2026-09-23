@@ -249,6 +249,18 @@ struct RESTAURANT{
         }
         cout << "--> Order ID: " << orderID << " not found!" << endl;
     }
+
+    // Chức năng 11: Cập nhật trạng thái đơn hàng
+    void updateOrderStatus (string orderID, string newStatus){
+        for (int i = 0; i < orderCount; i++){
+            if (orders[i].id == orderID){
+                orders[i].status == newStatus;
+                cout << " --> Updated order status successfully!" << endl;
+                return;
+            }
+        }
+        cout << " --> Order ID " << orderID << " not found!" << endl;
+    }
 int main(){
 
     RESTAURANT myrestaurant;

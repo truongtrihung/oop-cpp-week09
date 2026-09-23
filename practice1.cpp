@@ -237,6 +237,18 @@ struct RESTAURANT{
             orders[i].outputInfo();
         }
     }
+
+    // Chức năng 10: Tìm đơn hàng theo mã 
+    void findOrderbyID (string orderID){
+        for (int i = 0; i < orderCount; i++){
+            if (orders[i].id == orderID){
+                cout << "\n --> Found order: " << endl;
+                orders[i].inputInfo();
+                return;
+            }
+        }
+        cout << "--> Order ID: " << orderID << " not found!" << endl;
+    }
 int main(){
 
     RESTAURANT myrestaurant;

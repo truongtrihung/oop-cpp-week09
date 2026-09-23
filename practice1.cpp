@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-#define MAX 10
+#define MAX 100
 
 
 struct FOOD{
@@ -162,7 +162,7 @@ struct RESTAURANT{
     }
 
     // Chức năng 4 (hỗ trợ): Tìm món ăn theo id hoặc name
-    int findFoorIdex(string key){
+    int findFoodIdex(string key){
         for (int i = 0; i < foodCount; i++){
             if (foods[i].id == key || foods[i].name == key){
                 return i;
@@ -173,7 +173,7 @@ struct RESTAURANT{
 
     // Chức năng 5: Cập nhật giá hoặc số lượng món ăn
     void updateFoodIndex (string key){
-        int idx = findFoorIdex(key);
+        int idx = findFoodIdex(key);
         if (idx != -1){
             cout << "\n --> Food found: " << foods[idx].name << endl;
             
@@ -190,13 +190,44 @@ struct RESTAURANT{
         }
     }
     // Chức năng 6: Tạo đơn hàng mới
-    // Chức năng 7: Kiểm tra món ăn có tồn tại và đủ số lượng
-    // Chức năng 9: Hiển thị danh sách các đơn hàng
-    // Chức năng 10: Tìm đơn hàng theo mã
-    // Chức năng 11: Cập nhật trạng thái đơn hàng
-    // Chức năng 12: Thống kê tổng doanh thu của các đơn đã hoàn thành 
-};
+    void createOrder() {
+        if (orderCount < MAX) {
+            cout << "\n=== CREATE NEW ORDER ===" << endl;
+            ORDER newOrder;
+            newOrder.inputInfo(foods, foodCount);
 
+            // Kiểm tra số lượng tồn kho trước khi duyệt đơn
+            int idx = findFoodIdex(newOrder.food.id);
+            if (idx != -1) {
+                if (foods[idx].quantity >= newOrder.quantity) {
+                    foods[idx].quantity -= newOrder.quantity; // Trừ bớt hàng trong kho
+                    orders[orderCount] = newOrder;
+                    orderCount++;
+                    cout << " --> Order created successfully!" << endl;
+                } else {
+                    cout << " --> Order failed: Not enough quantity in stock!" << endl;
+                }
+            } else {
+                orders[orderCount] = newOrder;
+                orderCount++;
+                cout << " --> Order created with custom food entry!" << endl;
+            }
+        } else {
+            cout << " --> Order list is full!" << endl;
+        }
+    }
+
+    // Chức năng 9: Hiển thị danh sách các đơn hàng
+    void displayOrders() {
+        cout << "\n<<<<<<<<<<<< ORDERS LIST >>>>>>>>>>>>" << endl;
+        if (orderCount == 0) {
+            cout << "No orders created yet." << endl;
+            return;
+        }
+        for (int i = 0; i < orderCount; i++) {
+            orders[i].outputInfo();
+        }
+    }
 int main(){
 
     RESTAURANT myrestaurant;
@@ -207,6 +238,6 @@ int main(){
 
     // Chức năng 1: Nhập thông tin của cửa hàng
     myrestaurant.inputRestaurantInfo();
-
+    
     return 0;
 }

@@ -162,7 +162,7 @@ struct RESTAURANT{
     }
 
     // Chức năng 4 (hỗ trợ): Tìm món ăn theo id hoặc name
-    int findFoorInex(string key){
+    int findFoorIdex(string key){
         for (int i = 0; i < foodCount; i++){
             if (foods[i].id == key || foods[i].name == key){
                 return i;
@@ -172,7 +172,23 @@ struct RESTAURANT{
     }
 
     // Chức năng 5: Cập nhật giá hoặc số lượng món ăn
+    void updateFoodIndex (string key){
+        int idx = findFoorIdex(key);
+        if (idx != -1){
+            cout << "\n --> Food found: " << foods[idx].name << endl;
+            
+            cout << "Enter new price: ";
+            cin >> foods[idx].price;
 
+            cout << "Enter new quantity: ";
+            cin >> foods[idx].quantity;
+
+            cout << " --> Updated food infos successfully!" << endl;
+        }
+        else{
+            cout << " --> Food not found" << endl;
+        }
+    }
     // Chức năng 6: Tạo đơn hàng mới
     // Chức năng 7: Kiểm tra món ăn có tồn tại và đủ số lượng
     // Chức năng 9: Hiển thị danh sách các đơn hàng

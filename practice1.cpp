@@ -149,6 +149,17 @@ struct RESTAURANT{
         }
     }
     // Chức năng 3: Hiển thị danh sách món ăn
+    void displatMenu(){
+        cout << "<<<<<<<<<< MENU <<<<<<<<<<" << endl;
+        if (foodCount == 0 ){
+            cout << "No food available!" << endl;
+            return;
+        }
+        for (int i = 0; i < foodCount; i++){
+            foods[i].outputInfo();
+        }
+        
+    }
     // Chức năng 5: Cập nhật giá hoặc số lượng món ăn
     // Chức năng 6: Tạo đơn hàng mới
     // Chức năng 7: Kiểm tra món ăn có tồn tại và đủ số lượng

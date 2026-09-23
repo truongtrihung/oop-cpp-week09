@@ -261,6 +261,17 @@ struct RESTAURANT{
         }
         cout << " --> Order ID " << orderID << " not found!" << endl;
     }
+
+    // Chức năng 12: Thống kê tổng doanh thu của các đơn hàng đã hoàn thành
+    double calculateCompletedReveue(){
+        double totalRevenue = 0;
+        for (int i = 0; i < orderCount; i++){
+            if (orders[i].status == "Completed" || orders[i].status == "Completed"){
+                totalRevenue += orders[i].getTotalPrice();
+            }
+        }
+        return totalRevenue;
+    }
 int main(){
 
     RESTAURANT myrestaurant;

@@ -137,6 +137,17 @@ struct RESTAURANT{
         cout << "***********************************" << endl;
     }
     // Chức năng 2: Thêm món ăn mới
+    void addFood(){
+        if (foodCount < MAX){
+            cout << " ==> ADD NEW FOOD <==" << endl;
+            foods[foodCount].inputInfo();
+            foodCount++;
+            cout << " --> Add food successfully!" << endl;
+        }
+        else {
+            cout << " --> The Menu is full!" << endl;
+        }
+    }
     // Chức năng 3: Hiển thị danh sách món ăn
     // Chức năng 5: Cập nhật giá hoặc số lượng món ăn
     // Chức năng 6: Tạo đơn hàng mới

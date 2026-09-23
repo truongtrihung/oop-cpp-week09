@@ -64,18 +64,18 @@ struct ORDER{
         cout << "Enter the ID or Name of the food u wanna search: ";
         getline (cin, foodSearch);
 
+        bool found = false;
         for (int i = 0; i < availableCount; i++){
-            bool found = false;
-            if (foodSearch == availableFood[i].id && foodSearch == availableFood[i].name){
+            if (foodSearch == availableFood[i].id || foodSearch == availableFood[i].name){
                 food = availableFood[i];
                 found = true;
                 break;
             }
+        }
 
-            if (!found){
-                cout << "Sorry the ID/Name of the food are not exist" << endl;
-                food.inputInfo();
-            }
+        if (!found){
+            cout << "Sorry the ID/Name of the food does not exist" << endl;
+            food.inputInfo();
         }
 
         cout << "Enter the quantity: ";
@@ -90,7 +90,6 @@ struct ORDER{
     // Chức năng 8: Tính tổng tiền của đơn hàng
     double getTotalPrice(){
         return food.price * quantity;
-        cout << endl;
     }
 
     void outputInfo(){      // In thông tin order
@@ -111,9 +110,9 @@ struct RESTAURANT{
     string address;         // Địa chỉ
     string phone;           //  Số điện thoại
     FOOD foods[MAX];        // Danh sách món ăn
-    int foodCount;
+    int foodCount = 0;
     ORDER orders[MAX];      // Danh sách đơn hàng
-    int orderCount;          
+    int orderCount = 0;          
 
     // Chức năng 1: Nhập thông tin của cửa hàng
     void inputRestaurantInfo(){
@@ -243,7 +242,7 @@ struct RESTAURANT{
         for (int i = 0; i < orderCount; i++){
             if (orders[i].id == orderID){
                 cout << "\n --> Found order: " << endl;
-                orders[i].inputInfo();
+                orders[i].outputInfo();
                 return;
             }
         }
@@ -254,7 +253,7 @@ struct RESTAURANT{
     void updateOrderStatus (string orderID, string newStatus){
         for (int i = 0; i < orderCount; i++){
             if (orders[i].id == orderID){
-                orders[i].status == newStatus;
+                orders[i].status = newStatus;
                 cout << " --> Updated order status successfully!" << endl;
                 return;
             }
@@ -266,12 +265,14 @@ struct RESTAURANT{
     double calculateCompletedReveue(){
         double totalRevenue = 0;
         for (int i = 0; i < orderCount; i++){
-            if (orders[i].status == "Completed" || orders[i].status == "Completed"){
+            if (orders[i].status == "Completed"){
                 totalRevenue += orders[i].getTotalPrice();
             }
         }
         return totalRevenue;
     }
+};
+
 int main(){
 
     RESTAURANT myrestaurant;
@@ -283,5 +284,70 @@ int main(){
     // Chức năng 1: Nhập thông tin của cửa hàng
     myrestaurant.inputRestaurantInfo();
     
+    // Vòng lặp menu chính 
+    while (true){
+        cout << "\n========== MENU QUAN LY NHA HANG ==========" << endl;
+        cout << "1. Them mon an moi" << endl;
+        cout << "2. Hien thi danh sach mon an (Menu)" << endl;
+        cout << "3. Cap nhat gia hoac so luong mon an" << endl;
+        cout << "4. Tao don hang moi" << endl;
+        cout << "5. Hien thi danh sach don hang" << endl;
+        cout << "6. Tim don hang theo ma" << endl;
+        cout << "7. Cap nhat trang thai don hang" << endl;
+        cout << "8. Thong ke doanh thu (Don 'Completed')" << endl;
+        cout << "0. Thoat" << endl;
+        cout << "Chon chuc nang: ";
+
+        int choice;
+        cin >> choice;
+
+        if (choice == 0 ){
+            cout << "Existing program ..." << endl;
+            break;
+        }
+
+        if (choice  == 1){
+            myrestaurant.addFood();
+        }
+        else if (choice == 2){
+            myrestaurant.displatMenu();
+        }
+        else if (choice == 3){
+            cin.ignore();
+            string key;
+            cout << "Enter the ID or Name of the food u wanna update: ";
+            getline (cin, key);
+            myrestaurant.updateFoodIndex(key);
+        }
+        else if (choice == 4){
+            myrestaurant.createOrder();
+        }
+        else if (choice  == 5){
+            myrestaurant.displayOrders();
+        }
+        else if (choice == 6){
+            cin.ignore();
+            string id;
+            cout << "Enter ID u wanna search: ";
+            getline (cin, id);
+            myrestaurant.findOrderbyID(id);
+        }
+        else if (choice == 7){
+            cin.ignore();
+            string id, status;
+            cout << "Enter the id of the order: ";
+            getline (cin, id);
+            cout << "Enter new status (Completed/Pending/Cancelled): ";
+            getline (cin, status);
+            myrestaurant.updateOrderStatus(id, status);
+        }
+        else if (choice == 8){
+            cout << "\n --> Tong doanh thu don hang: " << myrestaurant.calculateCompletedReveue() << endl;
+        }
+        else {
+            cout << "Lua chon khong hop le. Vui long nhap lai" << endl;
+        }
+    }
+
     return 0;
 }

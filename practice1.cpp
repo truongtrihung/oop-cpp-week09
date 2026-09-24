@@ -121,6 +121,9 @@ struct RESTAURANT{
         cout << "Enter the name of the restaurant: ";
         getline (cin, name);
 
+        // STRINGS: 1. Nhập và hiển thị tên cửa hàng 
+        cout << "Chào mừng đến với " << name << "!" << endl;
+
         cout << "Enter the address: ";
         getline (cin, address);
 
